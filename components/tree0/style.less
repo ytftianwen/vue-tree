@@ -1,0 +1,43 @@
+.ui-tree {
+  padding: 0 5px;
+  .parent {
+    .head {
+      padding: 5px;
+      line-height: 1.5;
+      i{
+        display: inline-block;
+        width: 15px;
+        font-size: 12px;
+      }
+      label{
+        &+label {
+          margin-left: 10px;
+        }
+        .skyEye-checkbox__label {
+          padding: 0;
+        }
+        input {
+          vertical-align: middle;
+          margin: 0 5px 0 0;
+        }
+      }
+      .nodes-desc{
+        margin-left: 15px;
+      }
+    }
+    .children {
+      margin-left: 22px;
+      &.has-sign {
+        margin-left: 42px;
+      }
+    }
+  }
+  &.multi-tree .parent {
+    .children{
+      margin-left: 92px;
+      &.has-sign {
+        margin-left: 112px;
+      }
+    }
+  }
+}

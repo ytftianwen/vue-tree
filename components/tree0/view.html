@@ -1,0 +1,18 @@
+<div class="ui-tree" :class="{'multi-tree': type !== 'tree'}">
+    <template v-if="type === 'tree'">
+        <div v-for="node in root.children">
+            <ui-single-node :node="node"
+                            :show-sign="showSign"
+                            :show-checkbox="showCheckbox"
+                            @select="select"></ui-single-node>
+        </div>
+    </template>
+    <template v-else>
+        <div v-for="node in root.children">
+            <ui-multi-node :node="node"
+                           :show-sign="showSign"
+                           :show-checkbox="showCheckbox"
+                           @select="select"></ui-multi-node>
+        </div>
+    </template>
+</div>
