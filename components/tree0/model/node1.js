@@ -1,42 +1,17 @@
-export const parseData = data => {
-  let result = {}
-  linToTree(data, result)
-  return result
-}
-export const linToTree = (data, parent) => {
-  let children = findChildren(data, parent)
-  if (children.length) {
-    parent.data = children
-    children.forEach(i => {
-      linToTree(data, i)
-    })
-  }
-}
-export const findChildren = (data, parent) => {
-  let res = []
-  if (parent.value === undefined) {
-    data.forEach(i => {
-      if (i.parent === null || i.parent === undefined || i.parent === '') {
-        res.push(Object.assign({}, i))
-      }
-    })
-  } else {
-    data.forEach(i => {
-      if (i.parent === parent.value) {
-        res.push(Object.assign({}, i))
-      }
-    })
-  }
-  return res
-}
-
-export class ParseTree {
+export default class Node1 {
   constructor (options) {
-    this.root = null
+    this.data = null
+    for (let name in options) {
+      if (options.hasOwnProperty(name)) {
+        this[ name ] = options[ name ]
+      }
+    }
     //  内部属性
-    this.treeLine = []
+    this.lineTree = []
   }
-
+  _initdata (defaultCheckedKeys) {
+    // let treeLineData = this.tree2Line(this.data)
+  }
   tree2Line (tree, treeKey = 'id', isRoot = true, root = null) {
     if (!tree || !tree.children) return this.treeLine
     let obj = {}
