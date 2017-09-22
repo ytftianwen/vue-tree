@@ -1,61 +1,54 @@
 <template>
-  <div v-if="!multi">
-    <div v-for="node in root.children">
-      <fui-tree :node="node"></fui-tree>
+  <div>
+    <div v-for="node in data">
+      <fui-tree-node :tree-node="node"></fui-tree-node>
     </div>
-  </div>
-  <div v-else>
-    <tree-multi v-if="multi"></tree-multi>
   </div>
 </template>
 <script>
-  import fuiTree from './tree/tree.vue'
-  import treeMulti from './tree-multi/tree-multi.vue'
+  import Vue from 'vue'
+  import fuiTreeNode from './tree/tree.vue'
   import Node from './model/Node'
-  import NodeMulti from './model/NodeMulti'
-  import {parseData} from './model/utils'
-
-  console.log('tree----', fuiTree)
   export default {
     name: 'tree',
     components: {
-      fuiTree,
-      treeMulti
+      fuiTreeNode
     },
     props: {
-      multi: {
-        type: Boolean,
-        default: false
-      },
-      data: {
-        type: Array,
-        required: true
-      },
-      key: [String, Number],
-      defaultCheckedKey: {
-        type: Array,
-        default: function () {
-          return []
-        }
-      }
+      data: Array,
+      defaultKeys: Array
     },
     data () {
       return {
-        root: null
+        bus: null
+        // data2: []
       }
     },
-    methods: {
-      init () {
-        console.log(Node, NodeMulti)
-        let data = parseData(this.data)
-        if (!this.multi) {
-          console.log('data-----===', data)
-          this.root = new Node(data)
+    watch: {
+      data: {
+        deep: true,
+        handler: function (val, oldVal) {
+          debugger
+          console.log('......')
         }
       }
     },
+    computed: {
+    },
+    methods: {
+      init () {
+        let ops = {
+          data: this.data,
+          defaultKeys: this.defaultKeys
+        }
+        this.root = new Node(ops)
+      }
+    },
     created () {
+      // Vue.set(this, 'data2', Object.assign([], this.data))
+      this.bus = new Vue()
       this.init()
+      console.log('origin data...', this.data, null, 2)
     }
   }
 </script>

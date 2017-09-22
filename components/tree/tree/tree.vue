@@ -1,31 +1,43 @@
 <template>
     <div class="fui-tree">
       <div class="fui-tree__content">
-        <input type="checkbox" v-model="node.checked" @click.stop.native @change="checkboxChange"> <span>{{node.content}}</span>
+        <input type="checkbox" v-model="treeNode.checked" @click.stop.native @change="checkboxChange"> <span>{{treeNode.content}}{{treeNode.checked}}</span>
       </div>
-      <div class="FUI-tree__children">
-        <fui-tree v-for="node in node.children" :node="node"></fui-tree>
+      <div class="fui-tree__children">
+        <fui-tree-node v-for="childNode in treeNode.children" :tree-node="childNode"></fui-tree-node>
       </div>
     </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import './tree.css'
   export default {
-    name: 'fuiTree',
+    name: 'fuiTreeNode',
     props: {
-      node: Object
+      treeNode: Object
     },
     data () {
       return {
-        msg: 'hello, vue'
       }
     },
     methods: {
       checkboxChange () {
-        this.node.setChecked(this.node.checked, true)
+        let childNodes = this.$children
+        this.refreshChildNode(childNodes, this.treeNode.checked)
+      },
+      refreshParentNode (node) {
+        if (node instanceof Vue && node.treeNode) {
+          Vue.set(node.treeNode, 'checked', true)
+          console.log({node})
+          // node.$forceUpdate()
+          this.refreshParentNode(node.$parent) // 递归更新父组件数据
+        }
       }
     },
-    mounted () {
-      console.log('node----', this.node)
+    created () {
+      if (!this.treeNode.children || !this.treeNode.children.length) { // 从树的最底级向上渲染父级
+        this.refreshParentNode(this)
+      }
     }
   }
 </script>

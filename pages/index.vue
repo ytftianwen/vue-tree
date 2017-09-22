@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <tree :data="data0" :multi="false"></tree>
+    <tree :data="data" :default-keys="defaultKeys"></tree>
   </section>
 </template>
 
@@ -32,19 +32,13 @@ export default {
         checked: false,
         disabled: false
       }],
+      defaultKeys: [],
       data: [{
         key: 1,
         content: '一级1',
         children: [{
           key: 4,
-          content: '二级1-1',
-          children: [{
-            key: 9,
-            content: '三级1-1-1'
-          }]
-        }, {
-          key: 2,
-          content: '二级1-2'
+          content: '二级1-1'
         }]
       }]
     }

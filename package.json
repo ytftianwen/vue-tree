@@ -4,6 +4,12 @@
   "description": "Nuxt.js project",
   "author": "yangtaofeng <yangtaofeng@b.360.cn>",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "127.0.0.1",
+      "port": "1233"
+    }
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
